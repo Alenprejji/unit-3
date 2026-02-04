@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+// Define the structure
+struct Student {
+    int id;
+    float marks;
+};
+
+// Function to modify structure members using a pointer
+// The parameter is a pointer to a struct Student
+void update_marks(struct Student *s_ptr) {
+    // Use the arrow operator (->) to access and modify members
+    s_ptr->marks += 5.0; 
+    printf("Inside function: Marks updated to %.2f\n", s_ptr->marks);
+}
+
+// Function to display structure members using a pointer
+void display_details(struct Student *s_ptr) {
+    printf("ID: %d\n", s_ptr->id);
+    printf("Marks: %.2f\n", s_ptr->marks);
+}
+
+int main() {
+    // Declare a structure variable
+    struct Student st1;
+
+    // Assign values to structure members using the dot (.) operator
+    st1.id = 101;
+    st1.marks = 85.0;
+
+    printf("Before function call:\n");
+    display_details(&st1); // Pass the address of the structure variable
+
+    // Call the update function, passing the address of the structure
+    update_marks(&st1);
+
+    printf("\nAfter function call:\n");
+    // Display the updated values back in main
+    display_details(&st1);
+
+    return 0;
+}
