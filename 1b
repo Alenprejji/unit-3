@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+
+// Define a structure and a typedef alias simultaneously
+typedef struct Student {
+    char name[50];
+    int id_no;
+    float percentage;
+} StudentRec; // StudentRec is the alias for 'struct Student'
+
+int main() {
+    // Declare a variable using the typedef alias
+    StudentRec record;
+
+    // Assign values to structure members
+    strcpy(record.name, "Raju");
+    record.id_no = 1;
+    record.percentage = 86.5;
+
+    // Print the structure members
+    printf("Student Record:\n");
+    printf("Name: %s\n", record.name);
+    printf("ID No: %d\n", record.id_no);
+    printf("Percentage: %.2f\n", record.percentage);
+
+    return 0;
+}
