@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr;
+    int initial_size = 3;
+    int new_size = 5;
+    int i;
+    int *temp_ptr;
+
+    // 1. Initial memory allocation using malloc()
+    ptr = (int*) malloc(initial_size * sizeof(int));
+    if (ptr == NULL) {
+        printf("Initial memory allocation failed.\n");
+        return 1;
+    }
+
+    printf("Memory initially allocated for %d integers.\n", initial_size);
+    // Assign initial values
+    for (i = 0; i < initial_size; i++) {
+        ptr[i] = (i + 1) * 10;
+        printf("ptr[%d] = %d\n", i, ptr[i]);
+    }
+
+    // 2. Resize memory to hold 5 integers using realloc()
+    // Store in a temporary pointer first in case of failure
+    temp_ptr = (int*) realloc(ptr, new_size * sizeof(int));
+
+    if (temp_ptr == NULL) {
+        printf("\nMemory reallocation failed. Original pointer is still valid.\n");
+        // Free the original memory block before exiting on failure
+        free(ptr);
+        return 1;
+    } else {
+        ptr = temp_ptr; // Update original pointer only on success
+        printf("\nMemory successfully reallocated for %d integers.\n", new_size);
+    }
+
+    // 3. Use the newly allocated memory
+    // Assign values to the new elements (indices 3 and 4)
+    for (i = initial_size; i < new_size; i++) {
+        ptr[i] = (i + 1) * 10;
+    }
+
+    // Print all values
+    printf("Values after reallocation:\n");
+    for (i = 0; i < new_size; i++) {
+        printf("ptr[%d] = %d\n", i, ptr[i]);
+    }
+
+    // 4. Free the allocated memory
+    free(ptr);
+    ptr = NULL; // Good practice to prevent dangling pointer issues
+    printf("\nMemory has been freed.\n");
+
+    return 0;
+}
