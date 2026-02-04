@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+
+// Define the inner structure (Date)
+struct Date {
+    int day;
+    int month;
+    int year;
+};
+
+// Define the outer structure (Employee)
+struct Employee {
+    char name[50];
+    int id;
+    struct Date doj; // Nested structure variable (Date of Joining)
+    float salary;
+};
+
+int main() {
+    // Declare and initialize an Employee variable with nested Date values
+    struct Employee emp = {"John Doe", 123, {15, 7, 1990}, 50000.0};
+
+    // Access and print the data
+    printf("Employee Name: %s\n", emp.name);
+    printf("Employee ID: %d\n", emp.id);
+    printf("Employee Salary: %.2f\n", emp.salary);
+    // Accessing nested structure members requires using the dot operator for each level
+    printf("Date of Joining: %d-%d-%d\n", emp.doj.day, emp.doj.month, emp.doj.year);
+
+    return 0;
+}
