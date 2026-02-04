@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, i, *ptr;
+
+    // Prompt user for the number of elements
+    printf("Enter number of elements: ");
+    // Check if the input is a valid integer
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("Invalid input for the number of elements.\n");
+        return 1;
+    }
+
+    // Dynamically allocate memory for n integers
+    // malloc() returns a void pointer, which is cast to an int pointer
+    ptr = (int*)malloc(n * sizeof(int));
+
+    // Check if memory was successfully allocated
+    if (ptr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1; // Exit with an error code
+    }
+
+    printf("Memory successfully allocated using malloc().\n");
+
+    // Get the elements from the user and store them in the allocated memory
+    for (i = 0; i < n; ++i) {
+        printf("Enter element %d: ", i + 1);
+        // Store value at the appropriate memory address (ptr + i)
+        scanf("%d", ptr + i);
+    }
+
+    // Display the elements stored in the allocated memory
+    printf("\nThe elements are: ");
+    for (i = 0; i < n; ++i) {
+        // Access value at the address *(ptr + i)
+        printf("%d, ", *(ptr + i));
+    }
+    printf("\n");
+
+    // Free the dynamically allocated memory
+    free(ptr);
+    printf("Memory freed.\n");
+
+    return 0;
+}
