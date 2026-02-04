@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+#define MAX_STUDENTS 5
+
+// Define a structure to store student details
+struct Student {
+    int roll_no;
+    char name[50];
+    float marks;
+};
+
+// Function prototypes
+void input_students(struct Student s[], int size);
+void display_students(struct Student s[], int size);
+
+int main() {
+    // Declare an array of structures to store student records
+    struct Student students_array[MAX_STUDENTS];
+
+    printf("Enter details for %d students:\n", MAX_STUDENTS);
+    // Call the function to get input from the user
+    input_students(students_array, MAX_STUDENTS);
+
+    printf("\n--- Student Records ---\n");
+    // Call the function to display the stored records
+    display_students(students_array, MAX_STUDENTS);
+
+    return 0;
+}
+
+// Function to take input for student records
+void input_students(struct Student s[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("\nStudent %d:\n", i + 1);
+        printf("Enter roll number: ");
+        scanf("%d", &s[i].roll_no);
+        printf("Enter name: ");
+        // Clear the input buffer before reading the name (necessary after scanf %d)
+        while (getchar() != '\n'); 
+        fgets(s[i].name, sizeof(s[i].name), stdin);
+        // Remove the newline character added by fgets, if present
+        if (s[i].name[strlen(s[i].name) - 1] == '\n') {
+            s[i].name[strlen(s[i].name) - 1] = '\0';
+        }
+        printf("Enter marks: ");
+        scanf("%f", &s[i].marks);
+    }
+}
+
+// Function to display student records
+void display_students(struct Student s[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("\nStudent %d:\n", i + 1);
+        printf("Roll No: %d\n", s[i].roll_no);
+        printf("Name: %s\n", s[i].name);
+        printf("Marks: %.2f\n", s[i].marks);
+    }
+}
