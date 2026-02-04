@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+// Define the structure
+struct Student {
+    int rollNo;
+    char name[50];
+    float marks;
+};
+
+// Function prototype: receives a pointer to the first structure and the array size
+void displayStudents(struct Student *s_ptr, int n);
+
+int main() {
+    // Declare and initialize an array of structures
+    struct Student students[] = {
+        {101, "Rahul", 89.5},
+        {102, "Sneha", 92.0},
+        {103, "Aman", 78.5}
+    };
+
+    // Calculate the number of elements in the array
+    int num_students = sizeof(students) / sizeof(students[0]);
+
+    // Pass the array to the function (the array name acts as a pointer)
+    displayStudents(students, num_students);
+
+    return 0;
+}
+
+// Function definition
+void displayStudents(struct Student *s_ptr, int n) {
+    printf("\n--- Student Records ---\n");
+    for (int i = 0; i < n; i++) {
+        // Access members using the arrow operator (->) for pointers
+        printf("Student %d:\n", i + 1);
+        printf("Roll No: %d\n", s_ptr[i].rollNo);
+        printf("Name: %s\n", (s_ptr + i)->name); // Alternative pointer arithmetic syntax
+        printf("Marks: %.2f\n", s_ptr[i].marks);
+        printf("----------------------\n");
+    }
+}
